@@ -132,42 +132,42 @@ module "cdn_load_balancer" {
 
 ## Inputs
 
-| Name          | Description                                                   | Type           | Default    | Required |
-| ------------- | ------------------------------------------------------------- | -------------- | ---------- | :------: |
-| `domain`      | The domain name to configure the load balancer for            | `string`       | N/A        |   Yes    |
-| `name`        | Name of the load balancer (alphanumeric and hyphens only)     | `string`       | N/A        |   Yes    |
-| `description` | Description of the load balancer                              | `string`       | `""`       |    No    |
-| `status`      | Whether the load balancer is enabled                          | `bool`         | `true`     |    No    |
-| `method`      | Load balancing method: failover, cluster_rr, or cluster_chash | `string`       | `failover` |    No    |
-| `time_slice`  | Duration for pool selection in cluster_rr strategy            | `string`       | `0s`       |    No    |
-| `pools`       | List of pool configurations with their origins                | `list(object)` | `[]`       |    No    |
+| Name          | Description                                                         | Type           | Default    | Required |
+| ------------- | ------------------------------------------------------------------- | -------------- | ---------- | :------: |
+| `domain`      | The domain name to configure the load balancer for                  | `string`       | N/A        |   Yes    |
+| `name`        | Name of the load balancer (alphanumeric and hyphens only)           | `string`       | N/A        |   Yes    |
+| `description` | Description of the load balancer                                    | `string`       | `""`       |    No    |
+| `status`      | Whether the load balancer is enabled                                | `bool`         | `true`     |    No    |
+| `method`      | Load balancing method: `failover`, `cluster_rr`, or `cluster_chash` | `string`       | `failover` |    No    |
+| `time_slice`  | Duration for pool selection in `cluster_rr` strategy                | `string`       | `0s`       |    No    |
+| `pools`       | List of pool configurations with their origins                      | `list(object)` | `[]`       |    No    |
 
 ### Pool Object Structure
 
-| Name                  | Description                                    | Type                | Default      | Required |
-| --------------------- | ---------------------------------------------- | ------------------- | ------------ | :------: |
-| `name`                | Pool name                                      | `string`            | N/A          |   Yes    |
-| `description`         | Pool description                               | `string`            | `null`       |    No    |
-| `status`              | Pool enabled status                            | `bool`              | `true`       |    No    |
-| `priority`            | Pool priority (0 = default)                    | `number`            | `0`          |    No    |
-| `method`              | Pool method: cluster_rr or cluster_chash       | `string`            | `cluster_rr` |    No    |
-| `keepalive`           | Keepalive setting: on or off                   | `string`            | `off`        |    No    |
-| `next_upstream_tcp`   | Try next upstream on failure                   | `string`            | `off`        |    No    |
-| `next_upstream_codes` | Map of HTTP methods to status codes for retry  | `map(list(number))` | `{}`         |    No    |
-| `regions`             | List of 3-letter region codes (e.g., THR, FRA) | `list(string)`      | N/A          |   Yes    |
-| `origins`             | List of origin configurations                  | `list(object)`      | `[]`         |    No    |
+| Name                  | Description                                        | Type                | Default      | Required |
+| --------------------- | -------------------------------------------------- | ------------------- | ------------ | :------: |
+| `name`                | Pool name                                          | `string`            | N/A          |   Yes    |
+| `description`         | Pool description                                   | `string`            | `null`       |    No    |
+| `status`              | Pool enabled status                                | `bool`              | `true`       |    No    |
+| `priority`            | Pool priority (0 = default)                        | `number`            | `0`          |    No    |
+| `method`              | Pool method: `cluster_rr` or `cluster_chash`       | `string`            | `cluster_rr` |    No    |
+| `keepalive`           | Keepalive setting: `on` or `off`                   | `string`            | `off`        |    No    |
+| `next_upstream_tcp`   | Try next upstream on failure                       | `string`            | `off`        |    No    |
+| `next_upstream_codes` | Map of HTTP methods to status codes for retry      | `map(list(number))` | `{}`         |    No    |
+| `regions`             | List of 3-letter region codes (e.g., `THR`, `FRA`) | `list(string)`      | N/A          |   Yes    |
+| `origins`             | List of origin configurations                      | `list(object)`      | `[]`         |    No    |
 
 ### Origin Object Structure
 
-| Name          | Description                           | Type     | Default | Required |
-| ------------- | ------------------------------------- | -------- | ------- | :------: |
-| `name`        | Origin name                           | `string` | N/A     |   Yes    |
-| `address`     | Origin address (IP or hostname)       | `string` | N/A     |   Yes    |
-| `port`        | Origin port (1-65535)                 | `number` | `null`  |    No    |
-| `weight`      | Origin weight (1-1000)                | `number` | `100`   |    No    |
-| `status`      | Origin enabled status                 | `bool`   | `true`  |    No    |
-| `protocol`    | Origin protocol: auto, http, or https | `string` | `auto`  |    No    |
-| `host_header` | Custom host header for the origin     | `string` | `null`  |    No    |
+| Name          | Description                                 | Type     | Default | Required |
+| ------------- | ------------------------------------------- | -------- | ------- | :------: |
+| `name`        | Origin name                                 | `string` | N/A     |   Yes    |
+| `address`     | Origin address (IP or hostname)             | `string` | N/A     |   Yes    |
+| `port`        | Origin port (1-65535)                       | `number` | `null`  |    No    |
+| `weight`      | Origin weight (1-1000)                      | `number` | `100`   |    No    |
+| `status`      | Origin enabled status                       | `bool`   | `true`  |    No    |
+| `protocol`    | Origin protocol: `auto`, `http`, or `https` | `string` | `auto`  |    No    |
+| `host_header` | Custom host header for the origin           | `string` | `null`  |    No    |
 
 ## Outputs
 
