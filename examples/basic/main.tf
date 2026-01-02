@@ -12,18 +12,19 @@ module "cdn_load_balancer" {
       description = "Primary origin pool"
       priority    = 0
       status      = true
+      regions     = ["ir"]
 
       origins = [
         {
           name     = "origin-1"
-          address  = "origin1.example.ir"
+          address  = "185.23.45.100"
           port     = 443
           weight   = 100
           protocol = "https"
         },
         {
           name     = "origin-2"
-          address  = "origin2.example.ir"
+          address  = "185.23.45.101"
           port     = 443
           weight   = 100
           protocol = "https"

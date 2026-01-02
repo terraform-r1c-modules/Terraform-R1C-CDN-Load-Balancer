@@ -33,18 +33,19 @@ module "cdn_load_balancer" {
       priority    = 0
       status      = true
       method      = "cluster_rr"
+      regions     = ["ir"]
 
       origins = [
         {
           name     = "origin-1"
-          address  = "origin1.example.ir"
+          address  = "185.23.45.100"
           port     = 443
           weight   = 100
           protocol = "https"
         },
         {
           name     = "origin-2"
-          address  = "origin2.example.ir"
+          address  = "185.23.45.101"
           port     = 443
           weight   = 100
           protocol = "https"
@@ -56,11 +57,12 @@ module "cdn_load_balancer" {
       description = "Backup origin pool"
       priority    = 1
       status      = true
+      regions     = ["ir"]
 
       origins = [
         {
           name     = "backup-origin"
-          address  = "backup.example.ir"
+          address  = "185.23.45.200"
           port     = 443
           weight   = 100
           protocol = "https"
@@ -97,17 +99,12 @@ module "cdn_load_balancer" {
         post = [502, 503]
       }
 
-      regions = [
-        {
-          id     = "region-uuid-here"
-          region = "LAH"
-        }
-      ]
+      regions = ["ir", "eu"]
 
       origins = [
         {
           name        = "api-origin-1"
-          address     = "api1.example.ir"
+          address     = "10.0.1.10"
           port        = 8080
           weight      = 200
           protocol    = "https"
@@ -115,7 +112,7 @@ module "cdn_load_balancer" {
         },
         {
           name        = "api-origin-2"
-          address     = "api2.example.ir"
+          address     = "10.0.1.11"
           port        = 8080
           weight      = 100
           protocol    = "https"
@@ -129,11 +126,11 @@ module "cdn_load_balancer" {
 
 ## Resources
 
-| Name                                            | Type     |
-| ----------------------------------------------- | -------- |
-| `arvancloud_cdn_load_balancer.this`             | Resource |
-| `arvancloud_cdn_load_balancer_pool.this`        | Resource |
-| `arvancloud_cdn_load_balancer_pool_origin.this` | Resource |
+| Name                                                   | Type     |
+| ------------------------------------------------------ | -------- |
+| `arvancloud_cdn_domain_load_balancer.this`             | Resource |
+| `arvancloud_cdn_domain_load_balancer_pool.this`        | Resource |
+| `arvancloud_cdn_domain_load_balancer_pool_origin.this` | Resource |
 
 ## Inputs
 
@@ -159,7 +156,7 @@ module "cdn_load_balancer" {
 | `keepalive`               | Keepalive setting: on or off             | `string`       | `off`        |    No    |
 | `next_upstream_tcp`       | Try next upstream on failure             | `string`       | `off`        |    No    |
 | `next_upstream_tcp_codes` | Status codes triggering upstream switch  | `object`       | `null`       |    No    |
-| `regions`                 | List of region configurations            | `list(object)` | `[]`         |    No    |
+| `regions`                 | List of region identifiers               | `list(string)` | N/A          |   Yes    |
 | `origins`                 | List of origin configurations            | `list(object)` | `[]`         |    No    |
 
 ### Origin Object Structure

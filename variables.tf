@@ -72,10 +72,7 @@ variable "pools" {
       patch   = optional(list(number), [])
     }))
 
-    regions = optional(list(object({
-      id     = string
-      region = optional(string)
-    })), [])
+    regions = list(string)
 
     origins = optional(list(object({
       name        = string

@@ -18,6 +18,7 @@ module "cdn_load_balancer" {
       method            = "cluster_chash"
       keepalive         = "on"
       next_upstream_tcp = "on"
+      regions           = ["ir", "eu"]
 
       next_upstream_tcp_codes = {
         get  = [502, 503, 504]
@@ -28,7 +29,7 @@ module "cdn_load_balancer" {
       origins = [
         {
           name        = "api-server-1"
-          address     = "api1.example.ir"
+          address     = "10.0.1.10"
           port        = 8080
           weight      = 200
           status      = true
@@ -37,7 +38,7 @@ module "cdn_load_balancer" {
         },
         {
           name        = "api-server-2"
-          address     = "api2.example.ir"
+          address     = "10.0.1.11"
           port        = 8080
           weight      = 200
           status      = true
@@ -46,7 +47,7 @@ module "cdn_load_balancer" {
         },
         {
           name        = "api-server-3"
-          address     = "api3.example.ir"
+          address     = "10.0.1.12"
           port        = 8080
           weight      = 100
           status      = true
@@ -65,6 +66,7 @@ module "cdn_load_balancer" {
       method            = "cluster_rr"
       keepalive         = "off"
       next_upstream_tcp = "on"
+      regions           = ["ir"]
 
       next_upstream_tcp_codes = {
         get  = [500, 502, 503, 504]
@@ -74,7 +76,7 @@ module "cdn_load_balancer" {
       origins = [
         {
           name        = "backup-server-1"
-          address     = "backup1.example.ir"
+          address     = "10.0.2.10"
           port        = 443
           weight      = 100
           status      = true
@@ -83,7 +85,7 @@ module "cdn_load_balancer" {
         },
         {
           name        = "backup-server-2"
-          address     = "backup2.example.ir"
+          address     = "10.0.2.11"
           port        = 443
           weight      = 100
           status      = true
