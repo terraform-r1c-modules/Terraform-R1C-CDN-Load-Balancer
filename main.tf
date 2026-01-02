@@ -25,9 +25,8 @@ resource "arvancloud_cdn_domain_load_balancer_pool" "this" {
   method        = lookup(each.value, "method", "cluster_rr")
   keepalive     = lookup(each.value, "keepalive", "off")
 
-  next_upstream_tcp       = lookup(each.value, "next_upstream_tcp", "off")
-  next_upstream_tcp_codes = lookup(each.value, "next_upstream_tcp_codes", null)
-  regions                 = lookup(each.value, "regions", [])
+  next_upstream_tcp = lookup(each.value, "next_upstream_tcp", "off")
+  regions           = lookup(each.value, "regions", [])
 }
 
 #------------------------------------------------------------------------------

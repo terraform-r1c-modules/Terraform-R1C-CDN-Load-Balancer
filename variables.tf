@@ -62,15 +62,6 @@ variable "pools" {
     keepalive   = optional(string, "off")
 
     next_upstream_tcp = optional(string, "off")
-    next_upstream_tcp_codes = optional(object({
-      head    = optional(list(number), [])
-      get     = optional(list(number), [])
-      post    = optional(list(number), [])
-      put     = optional(list(number), [])
-      delete  = optional(list(number), [])
-      options = optional(list(number), [])
-      patch   = optional(list(number), [])
-    }))
 
     regions = list(string)
 

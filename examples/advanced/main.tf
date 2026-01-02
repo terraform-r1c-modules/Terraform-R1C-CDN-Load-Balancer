@@ -20,12 +20,6 @@ module "cdn_load_balancer" {
       next_upstream_tcp = "on"
       regions           = ["ir", "eu"]
 
-      next_upstream_tcp_codes = {
-        get  = [502, 503, 504]
-        post = [502, 503]
-        put  = [502, 503]
-      }
-
       origins = [
         {
           name        = "api-server-1"
@@ -67,11 +61,6 @@ module "cdn_load_balancer" {
       keepalive         = "off"
       next_upstream_tcp = "on"
       regions           = ["ir"]
-
-      next_upstream_tcp_codes = {
-        get  = [500, 502, 503, 504]
-        post = [502, 503, 504]
-      }
 
       origins = [
         {
