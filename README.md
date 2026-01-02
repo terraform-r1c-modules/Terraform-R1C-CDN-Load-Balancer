@@ -93,13 +93,7 @@ module "cdn_load_balancer" {
       method            = "cluster_chash"
       keepalive         = "on"
       next_upstream_tcp = "on"
-
-      next_upstream_tcp_codes = {
-        get  = [502, 503, 504]
-        post = [502, 503]
-      }
-
-      regions = ["ir", "eu"]
+      regions           = ["ir", "eu"]
 
       origins = [
         {
@@ -146,18 +140,17 @@ module "cdn_load_balancer" {
 
 ### Pool Object Structure
 
-| Name                      | Description                              | Type           | Default      | Required |
-| ------------------------- | ---------------------------------------- | -------------- | ------------ | :------: |
-| `name`                    | Pool name                                | `string`       | N/A          |   Yes    |
-| `description`             | Pool description                         | `string`       | `null`       |    No    |
-| `status`                  | Pool enabled status                      | `bool`         | `true`       |    No    |
-| `priority`                | Pool priority (0 = default)              | `number`       | `0`          |    No    |
-| `method`                  | Pool method: cluster_rr or cluster_chash | `string`       | `cluster_rr` |    No    |
-| `keepalive`               | Keepalive setting: on or off             | `string`       | `off`        |    No    |
-| `next_upstream_tcp`       | Try next upstream on failure             | `string`       | `off`        |    No    |
-| `next_upstream_tcp_codes` | Status codes triggering upstream switch  | `object`       | `null`       |    No    |
-| `regions`                 | List of region identifiers               | `list(string)` | N/A          |   Yes    |
-| `origins`                 | List of origin configurations            | `list(object)` | `[]`         |    No    |
+| Name                | Description                              | Type           | Default      | Required |
+| ------------------- | ---------------------------------------- | -------------- | ------------ | :------: |
+| `name`              | Pool name                                | `string`       | N/A          |   Yes    |
+| `description`       | Pool description                         | `string`       | `null`       |    No    |
+| `status`            | Pool enabled status                      | `bool`         | `true`       |    No    |
+| `priority`          | Pool priority (0 = default)              | `number`       | `0`          |    No    |
+| `method`            | Pool method: cluster_rr or cluster_chash | `string`       | `cluster_rr` |    No    |
+| `keepalive`         | Keepalive setting: on or off             | `string`       | `off`        |    No    |
+| `next_upstream_tcp` | Try next upstream on failure             | `string`       | `off`        |    No    |
+| `regions`           | List of region identifiers               | `list(string)` | N/A          |   Yes    |
+| `origins`           | List of origin configurations            | `list(object)` | `[]`         |    No    |
 
 ### Origin Object Structure
 
@@ -188,13 +181,6 @@ module "cdn_load_balancer" {
 - **failover**: Routes traffic to the first healthy pool; falls back to lower priority pools when primary fails
 - **cluster_rr** (Round Robin): Distributes traffic evenly across all healthy pools
 - **cluster_chash** (Consistent Hash): Routes requests to the same pool based on request characteristics
-
-## Next Upstream TCP Codes
-
-When `next_upstream_tcp` is enabled, you can specify which HTTP status codes from the upstream should trigger a switch to the next upstream server:
-
-- Allowed codes: `500`, `502`, `503`, `504`, `403`, `404`, `429`
-- Can be configured per HTTP method: `head`, `get`, `post`, `put`, `delete`, `options`, `patch`
 
 ## License
 
