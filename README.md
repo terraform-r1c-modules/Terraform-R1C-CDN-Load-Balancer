@@ -33,7 +33,7 @@ module "cdn_load_balancer" {
       priority    = 0
       status      = true
       method      = "cluster_rr"
-      regions     = ["ir"]
+      regions     = ["THR"]  # 3-letter region code
 
       origins = [
         {
@@ -57,7 +57,7 @@ module "cdn_load_balancer" {
       description = "Backup origin pool"
       priority    = 1
       status      = true
-      regions     = ["ir"]
+      regions     = ["THR"]
 
       origins = [
         {
@@ -97,7 +97,7 @@ module "cdn_load_balancer" {
         get  = [502, 503, 504]
         post = [502, 503]
       }
-      regions = ["ir", "eu"]
+      regions = ["THR", "FRA"]  # 3-letter region codes
 
       origins = [
         {
@@ -144,18 +144,18 @@ module "cdn_load_balancer" {
 
 ### Pool Object Structure
 
-| Name                  | Description                                   | Type                | Default      | Required |
-| --------------------- | --------------------------------------------- | ------------------- | ------------ | :------: |
-| `name`                | Pool name                                     | `string`            | N/A          |   Yes    |
-| `description`         | Pool description                              | `string`            | `null`       |    No    |
-| `status`              | Pool enabled status                           | `bool`              | `true`       |    No    |
-| `priority`            | Pool priority (0 = default)                   | `number`            | `0`          |    No    |
-| `method`              | Pool method: cluster_rr or cluster_chash      | `string`            | `cluster_rr` |    No    |
-| `keepalive`           | Keepalive setting: on or off                  | `string`            | `off`        |    No    |
-| `next_upstream_tcp`   | Try next upstream on failure                  | `string`            | `off`        |    No    |
-| `next_upstream_codes` | Map of HTTP methods to status codes for retry | `map(list(number))` | `{}`         |    No    |
-| `regions`             | List of region identifiers                    | `list(string)`      | N/A          |   Yes    |
-| `origins`             | List of origin configurations                 | `list(object)`      | `[]`         |    No    |
+| Name                  | Description                                    | Type                | Default      | Required |
+| --------------------- | ---------------------------------------------- | ------------------- | ------------ | :------: |
+| `name`                | Pool name                                      | `string`            | N/A          |   Yes    |
+| `description`         | Pool description                               | `string`            | `null`       |    No    |
+| `status`              | Pool enabled status                            | `bool`              | `true`       |    No    |
+| `priority`            | Pool priority (0 = default)                    | `number`            | `0`          |    No    |
+| `method`              | Pool method: cluster_rr or cluster_chash       | `string`            | `cluster_rr` |    No    |
+| `keepalive`           | Keepalive setting: on or off                   | `string`            | `off`        |    No    |
+| `next_upstream_tcp`   | Try next upstream on failure                   | `string`            | `off`        |    No    |
+| `next_upstream_codes` | Map of HTTP methods to status codes for retry  | `map(list(number))` | `{}`         |    No    |
+| `regions`             | List of 3-letter region codes (e.g., THR, FRA) | `list(string)`      | N/A          |   Yes    |
+| `origins`             | List of origin configurations                  | `list(object)`      | `[]`         |    No    |
 
 ### Origin Object Structure
 
@@ -186,6 +186,15 @@ module "cdn_load_balancer" {
 - **failover**: Routes traffic to the first healthy pool; falls back to lower priority pools when primary fails
 - **cluster_rr** (Round Robin): Distributes traffic evenly across all healthy pools
 - **cluster_chash** (Consistent Hash): Routes requests to the same pool based on request characteristics
+
+## Region Codes
+
+Region codes must be exactly 3 uppercase letters (e.g., `THR`, `FRA`). You can retrieve the list of available regions for your domain using the ArvanCloud API:
+
+```bash
+curl -X GET "https://napi.arvancloud.ir/cdn/4.0/domains/{your-domain}/load-balancers/regions" \
+  -H "Authorization: Apikey {your-api-key}"
+```
 
 ## License
 

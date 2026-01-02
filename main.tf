@@ -16,18 +16,17 @@ resource "arvancloud_cdn_domain_load_balancer" "this" {
 resource "arvancloud_cdn_domain_load_balancer_pool" "this" {
   for_each = { for pool in var.pools : pool.name => pool }
 
-  domain        = var.domain
-  load_balancer = arvancloud_cdn_domain_load_balancer.this.id
-  name          = each.value.name
-  description   = lookup(each.value, "description", null)
-  status        = lookup(each.value, "status", true)
-  priority      = lookup(each.value, "priority", 0)
-  method        = lookup(each.value, "method", "cluster_rr")
-  keepalive     = lookup(each.value, "keepalive", "off")
-
+  domain              = var.domain
+  load_balancer       = arvancloud_cdn_domain_load_balancer.this.id
+  name                = each.value.name
+  description         = lookup(each.value, "description", null)
+  status              = lookup(each.value, "status", true)
+  priority            = lookup(each.value, "priority", 0)
+  method              = lookup(each.value, "method", "cluster_rr")
+  keepalive           = lookup(each.value, "keepalive", "off")
+  regions             = lookup(each.value, "regions", [])
   next_upstream_tcp   = lookup(each.value, "next_upstream_tcp", "off")
   next_upstream_codes = lookup(each.value, "next_upstream_codes", {})
-  regions             = lookup(each.value, "regions", [])
 }
 
 #------------------------------------------------------------------------------

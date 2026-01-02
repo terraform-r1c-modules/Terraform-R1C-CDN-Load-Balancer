@@ -125,4 +125,13 @@ variable "pools" {
     ]))
     error_message = "Origin port must be between 1 and 65535."
   }
+
+  validation {
+    condition = alltrue(flatten([
+      for pool in var.pools : [
+        for region in pool.regions : can(regex("^[A-Z]{3}$", region))
+      ]
+    ]))
+    error_message = "Region codes must be 3 uppercase letters (e.g., THR, FRA). Use the ArvanCloud API to get available regions."
+  }
 }

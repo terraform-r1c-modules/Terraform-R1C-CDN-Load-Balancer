@@ -12,7 +12,7 @@ module "cdn_load_balancer" {
       description = "Primary origin pool"
       priority    = 0
       status      = true
-      regions     = ["ir"]
+      regions     = ["THR"] # 3-letter region code (e.g., THR for Tehran)
 
       origins = [
         {

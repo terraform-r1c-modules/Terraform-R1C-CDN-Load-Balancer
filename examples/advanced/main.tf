@@ -22,7 +22,7 @@ module "cdn_load_balancer" {
         get  = [502, 503, 504]
         post = [502, 503]
       }
-      regions = ["ir", "eu"]
+      regions = ["THR", "FRA"] # 3-letter region codes
 
       origins = [
         {
@@ -68,7 +68,7 @@ module "cdn_load_balancer" {
         get  = [500, 502, 503, 504]
         post = [502, 503, 504]
       }
-      regions = ["ir"]
+      regions = ["THR"] # 3-letter region code
 
       origins = [
         {
