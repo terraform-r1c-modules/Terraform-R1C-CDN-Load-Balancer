@@ -61,7 +61,8 @@ variable "pools" {
     method      = optional(string, "cluster_rr")
     keepalive   = optional(string, "off")
 
-    next_upstream_tcp = optional(string, "off")
+    next_upstream_tcp   = optional(string, "off")
+    next_upstream_codes = optional(map(list(number)), {})
 
     regions = list(string)
 

@@ -91,9 +91,13 @@ module "cdn_load_balancer" {
       description       = "API origin pool"
       priority          = 0
       method            = "cluster_chash"
-      keepalive         = "on"
-      next_upstream_tcp = "on"
-      regions           = ["ir", "eu"]
+      keepalive           = "on"
+      next_upstream_tcp   = "on"
+      next_upstream_codes = {
+        get  = [502, 503, 504]
+        post = [502, 503]
+      }
+      regions = ["ir", "eu"]
 
       origins = [
         {
@@ -140,17 +144,18 @@ module "cdn_load_balancer" {
 
 ### Pool Object Structure
 
-| Name                | Description                              | Type           | Default      | Required |
-| ------------------- | ---------------------------------------- | -------------- | ------------ | :------: |
-| `name`              | Pool name                                | `string`       | N/A          |   Yes    |
-| `description`       | Pool description                         | `string`       | `null`       |    No    |
-| `status`            | Pool enabled status                      | `bool`         | `true`       |    No    |
-| `priority`          | Pool priority (0 = default)              | `number`       | `0`          |    No    |
-| `method`            | Pool method: cluster_rr or cluster_chash | `string`       | `cluster_rr` |    No    |
-| `keepalive`         | Keepalive setting: on or off             | `string`       | `off`        |    No    |
-| `next_upstream_tcp` | Try next upstream on failure             | `string`       | `off`        |    No    |
-| `regions`           | List of region identifiers               | `list(string)` | N/A          |   Yes    |
-| `origins`           | List of origin configurations            | `list(object)` | `[]`         |    No    |
+| Name                  | Description                                   | Type                | Default      | Required |
+| --------------------- | --------------------------------------------- | ------------------- | ------------ | :------: |
+| `name`                | Pool name                                     | `string`            | N/A          |   Yes    |
+| `description`         | Pool description                              | `string`            | `null`       |    No    |
+| `status`              | Pool enabled status                           | `bool`              | `true`       |    No    |
+| `priority`            | Pool priority (0 = default)                   | `number`            | `0`          |    No    |
+| `method`              | Pool method: cluster_rr or cluster_chash      | `string`            | `cluster_rr` |    No    |
+| `keepalive`           | Keepalive setting: on or off                  | `string`            | `off`        |    No    |
+| `next_upstream_tcp`   | Try next upstream on failure                  | `string`            | `off`        |    No    |
+| `next_upstream_codes` | Map of HTTP methods to status codes for retry | `map(list(number))` | `{}`         |    No    |
+| `regions`             | List of region identifiers                    | `list(string)`      | N/A          |   Yes    |
+| `origins`             | List of origin configurations                 | `list(object)`      | `[]`         |    No    |
 
 ### Origin Object Structure
 

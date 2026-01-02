@@ -18,7 +18,11 @@ module "cdn_load_balancer" {
       method            = "cluster_chash"
       keepalive         = "on"
       next_upstream_tcp = "on"
-      regions           = ["ir", "eu"]
+      next_upstream_codes = {
+        get  = [502, 503, 504]
+        post = [502, 503]
+      }
+      regions = ["ir", "eu"]
 
       origins = [
         {
@@ -60,7 +64,11 @@ module "cdn_load_balancer" {
       method            = "cluster_rr"
       keepalive         = "off"
       next_upstream_tcp = "on"
-      regions           = ["ir"]
+      next_upstream_codes = {
+        get  = [500, 502, 503, 504]
+        post = [502, 503, 504]
+      }
+      regions = ["ir"]
 
       origins = [
         {
