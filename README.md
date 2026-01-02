@@ -183,9 +183,9 @@ module "cdn_load_balancer" {
 
 ## Load Balancing Methods
 
-- **failover**: Routes traffic to the first healthy pool; falls back to lower priority pools when primary fails
-- **cluster_rr** (Round Robin): Distributes traffic evenly across all healthy pools
-- **cluster_chash** (Consistent Hash): Routes requests to the same pool based on request characteristics
+- **`failover`**: Routes traffic to the first healthy pool; falls back to lower priority pools when primary fails
+- **`cluster_rr`** (Round Robin): Distributes traffic evenly across all healthy pools
+- **`cluster_chash`** (Consistent Hash): Routes requests to the same pool based on request characteristics
 
 ## Region Codes
 
@@ -198,4 +198,4 @@ curl -X GET "https://napi.arvancloud.ir/cdn/4.0/domains/{your-domain}/load-balan
 
 ## License
 
-MIT License - See [LICENSE](LICENSE) for details.
+Apache 2.0 Licensed. See [LICENSE](LICENSE) for full details
