@@ -3,9 +3,6 @@ contact_links:
   - name: 📖 Documentation
     url: https://github.com/terraform-r1c-modules/terraform-r1c-cdn-load-balancer#readme
     about: Check the documentation before opening an issue
-  - name: 💬 Discussions
-    url: https://github.com/terraform-r1c-modules/terraform-r1c-cdn-load-balancer/discussions
-    about: Ask questions and discuss with the community
   - name: 📚 ArvanCloud Documentation
-    url: https://www.arvancloud.ir/en/docs/cdn/load-balancer
+    url: https://docs.arvancloud.ir/en/cdn/load-balancing/
     about: Official ArvanCloud CDN Load Balancer documentation
